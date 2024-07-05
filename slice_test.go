@@ -234,3 +234,11 @@ func TestFilterAllocated(t *testing.T) {
 
 	require.Equalf(t, list.internal, []int{2, 4}, "raw list")
 }
+
+func TestUnshift(t *testing.T) {
+	list := Slice[int]{[]int{1, 2, 3, 4, 5}}
+
+	list.Unshift(0)
+
+	require.Equalf(t, list.internal, []int{0, 1, 2, 3, 4, 5}, "unshift 0")
+}

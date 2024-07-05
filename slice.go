@@ -163,6 +163,10 @@ func (s *Slice[M]) FilterAllocated(callback func(M) bool) {
 	s.internal = s.internal[:index]
 }
 
+func (s *Slice[M]) Unshift(element M) {
+	s.internal = append([]M{element}, s.internal...)
+}
+
 func max(a int, b int) int {
 	if a > b {
 		return a
