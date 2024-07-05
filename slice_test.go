@@ -213,3 +213,24 @@ func TestExtend(t *testing.T) {
 	list.Extend(2)
 	require.Equalf(t, list.internal, []int{1, 2, 3, 4, 5, 0, 0}, "extend 2 elements")
 }
+
+func is_even(element int) bool {
+	return element%2 == 0
+}
+
+func TestFilter(t *testing.T) {
+	list := Slice[int]{[]int{1, 2, 3, 4, 5}}
+
+	new_list := list.Filter(is_even)
+
+	require.Equalf(t, list.internal, []int{1, 2, 3, 4, 5}, "raw list")
+	require.Equalf(t, new_list.internal, []int{2, 4}, "filtered list")
+}
+
+func TestFilterAllocated(t *testing.T) {
+	list := Slice[int]{[]int{1, 2, 3, 4, 5}}
+
+	list.FilterAllocated(is_even)
+
+	require.Equalf(t, list.internal, []int{2, 4}, "raw list")
+}

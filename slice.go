@@ -138,6 +138,31 @@ func (s *Slice[M]) Extend(element_number int) {
 	s.internal = append(s.internal, make([]M, element_number)...)
 }
 
+func (s Slice[M]) Filter(callback func(M) bool) Slice[M] {
+	new_slice := Slice[M]{}
+
+	for _, element := range s.internal {
+		if callback(element) {
+			new_slice.Push(element)
+		}
+	}
+
+	return new_slice
+}
+
+func (s *Slice[M]) FilterAllocated(callback func(M) bool) {
+	index := 0
+
+	for _, element := range s.internal {
+		if callback(element) {
+			s.internal[index] = element
+			index++
+		}
+	}
+
+	s.internal = s.internal[:index]
+}
+
 func max(a int, b int) int {
 	if a > b {
 		return a
