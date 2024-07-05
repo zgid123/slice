@@ -242,3 +242,11 @@ func TestUnshift(t *testing.T) {
 
 	require.Equalf(t, list.internal, []int{0, 1, 2, 3, 4, 5}, "unshift 0")
 }
+
+func TestInsertVector(t *testing.T) {
+	list := Slice[int]{[]int{1, 2, 3, 4, 5}}
+
+	list.InsertVector([]int{6, 7, 8}, 3)
+
+	require.Equalf(t, list.internal, []int{1, 2, 3, 6, 7, 8, 4, 5}, "insert [6, 7, 8] at 3")
+}
